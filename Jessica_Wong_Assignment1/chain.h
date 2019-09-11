@@ -36,26 +36,26 @@ public:
   };
 
   // Move-constructor. 
-  Chain(Chain &&rhs) : size_(rhs.size_), array_(new Object[size_]) {
-    rhs.size_ = 0;
-
-    for(size_t i = 0; i < size_; ++i) {
-      array_[i] = Object(rhs.array_[i]);
-    }
-
-    delete[] rhs.array_;
-  };
-
-  // Move-assignment.
-  Chain& operator=(Chain &&rhs) {
-    std::swap (size_, rhs.size_);
-    std::swap (array_, rhs.array_);
-    return *this;
+    Chain(Chain &&rhs) : size_{rhs.size_}, array_{rhs.array_} {
+      rhs.size_ = 0;
+      rhs.array_ = nullptr;
+      delete[] rhs.array_;
   }
 
-  ~Chain() {
+  // Move-assignment.
+    Chain &operator=(Chain &&rhs) {
+      std::swap(size_, rhs.size_);
+      std::swap(array_, rhs.array_);
+      rhs.size_ = 0;
+      delete[] rhs.array_;
+      rhs.array_ = nullptr;
+      return *this;
+  }
+
+  ~Chain() {  
     delete [] array_;
     array_ = nullptr;   
+    size_ = 0;
   }
 
   // End of big-five.
@@ -98,7 +98,7 @@ public:
   // @returns the Object at @location.
   // const version.
   // abort() if out-of-range.
-  Object& operator[](size_t location) { 
+  const Object& operator[](size_t location) const{ 
     if(location > size_-1) {
        abort();
      }

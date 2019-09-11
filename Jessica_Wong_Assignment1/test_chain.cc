@@ -1,4 +1,3 @@
-// Jessica Wong | CSCI 335 | September 10th, 2019
 // Do not change this file other than adding header files
 // if needed.
 // You can also comment parts of the functions, and uncomment
@@ -52,8 +51,7 @@ void TestPart2() {
 
 }  // namespace
 
-int
-main(int argc, char **argv) {
+int main(int argc, char **argv) {
   TestPart1();
   TestPart2();
   return 0;
